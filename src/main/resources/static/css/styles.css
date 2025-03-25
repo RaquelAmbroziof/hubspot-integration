@@ -1,0 +1,62 @@
+/* Resetando margens e padding do body */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f9f9f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+/* Container para centralizar o conteúdo */
+.container {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px; /* Aumentado o tamanho máximo da caixa */
+    text-align: center;
+}
+
+/* Estilo do título */
+h2 {
+    color: #333;
+    font-size: 22px;
+}
+
+/* Estilo do parágrafo */
+p {
+    font-size: 16px;
+    margin-bottom: 10px;
+}
+
+/* Para o parágrafo com texto que não deve quebrar */
+.no-wrap {
+    white-space: nowrap; /* Impede quebra de linha */
+    text-align: center; /* Garante que o texto será centralizado */
+    display: inline-block; /* Faz com que o elemento se ajuste ao conteúdo */
+    width: 100%; /* Faz o parágrafo ocupar toda a largura disponível */
+    padding: 0 10px; /* Evita espaços irregulares nas bordas */
+    box-sizing: border-box; /* Garante que o padding não afete a largura */
+}
+
+/* Estilo do código de autorização */
+#auth-code {
+    font-size: 18px;
+    font-weight: bold;
+    color: #4CAF50;
+    background-color: #f1f8e9;
+    padding: 10px;
+    border-radius: 5px;
+    word-wrap: break-word;
+    margin: 20px 0;
+}
+
+/* Caso o código não seja encontrado, aplica uma cor de erro */
+#auth-code.error {
+    color: red;
+    background-color: #ffebeb;
+}

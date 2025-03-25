@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Código de Autorização</title>
+    <link rel="stylesheet" href="/css/styles.css">
+</head>
+<body>
+
+<div class="container">
+    <h2>Código de Autorização</h2>
+    <p>Autorizaçao realizada com sucesso! Copie o código abaixo:</p>
+    <p id="auth-code">Carregando...</p>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const code = urlParams.get('code');
+    const authCodeElement = document.getElementById('auth-code');
+
+    // Se o código for encontrado, exibe ele, caso contrário, mostra uma mensagem de erro
+    if (code) {
+        authCodeElement.innerText = code;
+    } else {
+        authCodeElement.innerText = "Nenhum código encontrado. Tente novamente.";
+        authCodeElement.style.color = "red";
+        authCodeElement.style.backgroundColor = "#ffebeb";
+    }
+</script>
+
+</body>
+</html>
