@@ -1,6 +1,6 @@
 package com.example.hubspot_integration.service;
 
-import jakarta.security.auth.message.AuthException;
+import com.example.hubspot_integration.exception.ExternalApiException;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.*;
 import org.springframework.stereotype.Service;
@@ -32,9 +32,13 @@ public class AuthService {
     private String grantType;
 
     public String getAuthorizationUrl() {
+        try {
         return String.format(
                 "%s?client_id=%s&redirect_uri=%s&scope=%s&response_type=code",
                 authUrl, clientId, redirectUri, scopes);
+        } catch (Exception e) {
+            throw new ExternalApiException("Erro ao gerar URL de autorização" + e.getMessage(), e);
+        }
     }
 
     public ResponseEntity<Object> exchangeCodeForToken(String code) {
@@ -52,11 +56,11 @@ public class AuthService {
             if(response.getStatusCode() == HttpStatus.OK) {
                 return ResponseEntity.ok().body(response.getBody());
             } else {
-                return ResponseEntity.badRequest().body(new AuthException("Erro ao recuperar o token: " + response.getStatusCode()));
+                throw new ExternalApiException("Erro ao recuperar o token: " + response.getStatusCode());
             }
 
         } catch (Exception e) {
-            return ResponseEntity.badRequest().body("Falha na comunicação com o HubSpot" + e.getMessage());
+            throw new ExternalApiException("Falha na comunicação com o HubSpot: " + e.getMessage(), e);
         }
 
         }

@@ -22,14 +22,12 @@ public class AuthController {
 
     @GetMapping("/authorize")
     public ResponseEntity<String> authorizationUrlGeneration() {
-        String authorizationUrl = authService.getAuthorizationUrl();
-        return ResponseEntity.ok(authorizationUrl);
+        return ResponseEntity.ok(authService.getAuthorizationUrl());
     }
 
     @GetMapping("/callback")
     public ResponseEntity<Object> oauthCallbackProcessing(@RequestParam("code") String code) {
-        String accessToken = String.valueOf(authService.exchangeCodeForToken(code));
-        return ResponseEntity.ok("Token recuperado com sucesso: " + accessToken);
+        return authService.exchangeCodeForToken(code);
     }
 
 }
