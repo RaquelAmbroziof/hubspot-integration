@@ -56,17 +56,18 @@ Na raiz do repositório, você encontrará uma coleção do Postman contendo tod
    
    ![Imagem do Projeto](images/login.png)
 
-3. Após autorizar, o HubSpot redirecionará você para uma página onde o código de autorização será exibido. Copie o código de autorização. 
+3. Após autorizar, o HubSpot redirecionará você para uma página onde o código de autorização será exibido. Copie o código de autorização.
+   
   ![Imagem do Projeto](images/code.png)
 
-4. Faça uma requisição GET para `http://localhost:8080/oauth/callback?code={seuCodigo}`, substituindo `{seuCodigo}` pelo código copiado no passo anterior.
+5. Faça uma requisição GET para `http://localhost:8080/oauth/callback?code={seuCodigo}`, substituindo `{seuCodigo}` pelo código copiado no passo anterior.
   ![Imagem do Projeto](images/callback.png)
 
-5. O HubSpot retornará o token de acesso. Copie o token em seguida, faça uma requisição POST para `http://localhost:8080/contact/create` para criar um novo contato.
-6. Inclua o token de acesso no cabeçalho da requisição.
+6. O HubSpot retornará o token de acesso. Copie o token em seguida, faça uma requisição POST para `http://localhost:8080/contact/create` para criar um novo contato.
+7. Inclua o token de acesso no cabeçalho da requisição.
 ![Imagem do Projeto](images/token-contact-create.png)
 
-7. Inclua o body e envie a requisição.
+8. Inclua o body e envie a requisição.
 ![Imagem do Projeto](images/body-contact-create.png)
 
 ## Decisões Técnicas
@@ -91,18 +92,12 @@ Essas decisões visam otimizar a segurança, a escalabilidade e a simplicidade d
 
 Abaixo estão algumas possíveis melhorias para o futuro:
 
-**Testes**
-   - Implementar testes unitários e de integração com a API do HubSpot.
-**Documentação da API**
-   - A documentação da API poderia ser melhorada usando ferramentas como Swagger/OpenAPI com a adição de exemplos de requisições e respostas, além de uma descrição mais detalhada de cada endpoint.
-**Melhorar Gerenciamento dos Tokens**
-   - Gerenciar melhor os tokens com permanência em Banco de Dados ou cache (como Redis). Isso permitiria a aplicação lidar com tokens expirados de maneira mais eficiente e evitar reautenticações desnecessárias.
-**Melhorias no Gerenciamento de Erros**
-   - Embora o sistema já trate de erros de forma básica, poderia implementar uma estratégia mais robusta de gerenciamento de erros, com códigos de status HTTP mais detalhados e mensagens de erro mais informativas. 
-**Suporte a Outras APIs do HubSpot**
-   - A integração com a **API do HubSpot** poderia ser expandida para incluir outras funcionalidades, com criação e gerenciamento de mais recursos. 
-**Deploy em Ambiente de Produção**
-   - Atualmente, o projeto está configurado para rodar localmente. O próximo passo seria preparar o ambiente para produção.
+- **Testes**:  Implementar testes unitários e de integração com a API do HubSpot.  
+- **Documentação da API**: A documentação da API poderia ser melhorada usando ferramentas como Swagger/OpenAPI com a adição de exemplos de requisições e respostas, além de uma descrição mais detalhada de cada endpoint. 
+- **Melhorar Gerenciamento dos Tokens**: Gerenciar melhor os tokens com permanência em Banco de Dados ou cache (como Redis). Isso permitiria a aplicação lidar com tokens expirados de maneira mais eficiente e evitar reautenticações desnecessárias.
+- **Melhorias no Gerenciamento de Erros**: Embora o sistema já trate de erros de forma básica, poderia implementar uma estratégia mais robusta de gerenciamento de erros, com códigos de status HTTP mais detalhados e mensagens de erro mais informativas.
+- **Suporte a Outras APIs do HubSpot**: A integração com a API do HubSpot poderia ser expandida para incluir outras funcionalidades, com criação e gerenciamento de mais recursos. 
+- **Deploy em Ambiente de Produção**: Atualmente, o projeto está configurado para rodar localmente. O próximo passo seria preparar o ambiente para produção.
 
 
 
