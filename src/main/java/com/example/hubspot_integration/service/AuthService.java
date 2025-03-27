@@ -42,7 +42,6 @@ public class AuthService {
         this.webClientBuilder = webClientBuilder;
     }
 
-    // Método que gera a URL de autorização
     public ResponseEntity<String> getAuthorizationUrl() {
         try {
             String url = String.format(
@@ -54,7 +53,6 @@ public class AuthService {
         }
     }
 
-    // Método para trocar o código de autorização por um token de acesso
     public Mono<ResponseEntity<String>> exchangeCodeForToken(String code) {
         String requestBody = String.format(
                 "grant_type=%s&client_id=%s&client_secret=%s&redirect_uri=%s&code=%s",
@@ -69,7 +67,6 @@ public class AuthService {
                 .bodyToMono(String.class)
                 .flatMap(response -> {
                     try {
-                        // Processa a resposta JSON e armazena o token
                         currentToken = extractTokenFromResponse(response);  // Aqui o currentToken é atualizado
                         return Mono.just(ResponseEntity.ok("Token recuperado com sucesso: " + currentToken.getAccessToken()));
                     } catch (Exception e) {
@@ -77,21 +74,18 @@ public class AuthService {
                     }
                 })
                 .onErrorResume(e -> {
-                    // Tratamento de erro na troca do token
                     return Mono.just(ResponseEntity.status(HttpStatus.BAD_REQUEST)
                             .body("Erro ao recuperar o token: " + e.getMessage()));
                 });
     }
 
-    // Método para obter o token de acesso, verificando se está expirado
     public Mono<String> getAccessToken() {
         if (currentToken == null || currentToken.isExpired()) {
-            return refreshAccessToken();  // Atualiza o token se estiver expirado ou nulo
+            return refreshAccessToken();
         }
-        return Mono.just(currentToken.getAccessToken());  // Retorna o token se não expirou
+        return Mono.just(currentToken.getAccessToken());
     }
 
-    // Método para renovar o token de acesso usando o refresh token
     private Mono<String> refreshAccessToken() {
         if (currentToken == null || currentToken.getRefreshToken() == null) {
             return Mono.error(new ExternalApiException("Refresh token não disponível para renovação."));
@@ -110,9 +104,8 @@ public class AuthService {
                 .bodyToMono(String.class)
                 .flatMap(response -> {
                     try {
-                        // Atualiza o currentToken com o novo token de acesso
-                        currentToken = extractTokenFromResponse(response);  // Atualiza o currentToken
-                        return Mono.just(currentToken.getAccessToken());  // Retorna o novo accessToken como Mono<String>
+                        currentToken = extractTokenFromResponse(response);
+                        return Mono.just(currentToken.getAccessToken());
                     } catch (JsonProcessingException e) {
                         return Mono.error(new ExternalApiException("Erro ao processar a resposta da renovação do token", e));
                     }
@@ -120,17 +113,14 @@ public class AuthService {
     }
 
 
-    // Método para processar a resposta JSON e retornar um novo Token
     private Token extractTokenFromResponse(String response) throws JsonProcessingException {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode rootNode = objectMapper.readTree(response);
 
-        // Extraindo os valores do access_token, refresh_token e expires_in
         String accessToken = rootNode.path("access_token").asText();
         String refreshToken = rootNode.path("refresh_token").asText();
         int expiresIn = rootNode.path("expires_in").asInt();
 
-        // Criando e retornando um novo objeto Token
         return new Token(accessToken, refreshToken, expiresIn);
     }
 }
