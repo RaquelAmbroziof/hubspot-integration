@@ -1,0 +1,107 @@
+{
+	"info": {
+		"_postman_id": "6cc59a5e-f873-4d7a-b8e9-eb1eb68eaf6b",
+		"name": "HUBSPOT",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12401584"
+	},
+	"item": [
+		{
+			"name": "/oauth/authorize",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/oauth/authorize",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oauth",
+						"authorize"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/auth/callback",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/oauth/callback?code=na1-fc6c-a5bb-4b4e-8bd7-852eed24e6b7",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"oauth",
+						"callback"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "na1-fc6c-a5bb-4b4e-8bd7-852eed24e6b7"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "/contact/create",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer CNSHzKvdMhIHAAEAQAAAARi389IXIOqpySUoutjWBDIUXXjCxZe9gDxeDKmUuo2J3jcPGlE6MAAAAEEAAAAAAAAAAAAAAAAAgAAAAAAAAAAAACAAAAAAAOABAAAAAAAAAAAAAAAQAkIUMN0Kjs8DdEI8LI4X9qYO0n7MCytKA25hMVIAWgBgAGjqqcklcAA",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n  \"properties\": {\n    \"email\": \"exemplo3@dominio.com\",\n    \"firstname\": \"jose\",\n    \"lastname\": \"Souza\"\n  }\n}\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/contact/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"contact",
+						"create"
+					],
+					"query": [
+						{
+							"key": "code",
+							"value": "na1-8f34-717f-4703-a57d-9292a36a4e52",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
